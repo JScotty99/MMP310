@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Jaron Scotland</title>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro|Raleway" rel="stylesheet">
+    </head>
+<body>
+    <nav>
+       <a href="Index.html"><li>Home</li></a>
+       <a href="blogpost1.html"><li>Assignment 1</li></a>
+        <a href="blogpost2.html"><li>Assignment 2</li></a>
+     
+    </nav>
+    <div id="wrapper">
+    <header>
+    <div class="banner">
+    <h1>Mulimedia Blog</h1>
+    <img src="images/me.jpg" alt="Me">
+    </div>
+    </header>
+    <section class="Blog">
+     <h2>Buttons Ahoy</h2>
+    <p>You know whats cool, buttons. Do you like buttons? Click it if you do.</p>
+        <button id="like">Like</button>
+        
+    <h2>Input is also cool(ish)</h2>
+     <p>Hey there! I'm Jaron, a novice Multimedia Designer! Hit me up for Commissions!</p>
+  <input id="email" type="email" placeholder="Your email"/>
+  <input id="name" type="text" placeholder="Input name"/>
+  <button id="submit"><input type="submit"></button> 
+     <p id="message"></p>
+    </section>
+   </div>
+    
+    <script>
+     var like = document.getElementById("like");
+     var submit = document.getElementById("submit");
+    
+    like.onclick = function() {
+	    alert("The Elder Gods thank you for joining the cause"); ;
+    };
+    
+    submit.onclick = function() {
+	    var name = document.getElementById("name").value;
+	    var email = document.getElementById("email").value;
+	    console.log(name, email);
+	    var message = document.getElementById("message");
+	    message.innerHTML = "Hello " + name + ", welcome to my website. I'll contact you through " + email + " , I can't wait to start working with you."; };         
+  </script>
+    
+</body>
+</html>
