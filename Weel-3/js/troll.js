@@ -20,7 +20,7 @@ var dioDa = document.getElementById('dio').style.visibility = "hidden";
  
 addEventListener("click",function(event){
     console.log(event);
-    alert("You thought a funny image would be your reward")
+    alert("You thought a funny image would be your reward. But...")
     document.getElementById('dio').style.visibility = "visible";
 });
 
