@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
-<body onload="startGame()">
+<body onload="startGame()">  
 <script>
 
 var myGamePiece;
@@ -34,6 +34,9 @@ var myGameArea = {
         },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+     stop : function() {
+        clearInterval(this.interval);
     }
 }
 
@@ -44,6 +47,7 @@ function component(width, height, color, x, y, type) {
         this.image = new Image();
         this.image.src = color;
     }
+    this.score = 0;
     this.width = width;
     this.height = height;
     this.speedX = 0;
@@ -65,7 +69,6 @@ function component(width, height, color, x, y, type) {
     this.newPos = function() {
         this.x += this.speedX;
         this.y += this.speedY;
-    }
 }
     
     //Collision.
@@ -84,13 +87,13 @@ function component(width, height, color, x, y, type) {
         }
         return crash;
     }
-}
+
 
 //FPS
 function updateGameArea() {
     var x, height, gap, minHeight, maxHeight, minGap, maxGap;
     for (i = 0; i < myObstacles.length; i += 1) {
-        if (myGamePiece.crashWith(myObstacles[i])) {
+        if (myGamePiece.crashWith(myObstacles[i])) {;
             return;
         }
     }
@@ -131,8 +134,9 @@ function everyinterval(n) {
 function accelerate(n) {
     myGamePiece.gravity = n;
 }
+
+}
 </script>
-    
 <br>
 <br>
 <button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">ACCELERATE</button>
