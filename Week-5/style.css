@@ -1,0 +1,22 @@
+canvas {
+    border:1px solid #d3d3d3;
+  /* background-image:url('warehouse.png')*/
+}
+
+p {
+    font-family: 'Press Start 2P', cursive;
+}
+
+button {
+    background-color: #CF000F; 
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
