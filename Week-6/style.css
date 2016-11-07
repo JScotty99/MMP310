@@ -1,9 +1,9 @@
 canvas {
     border:1px solid #d3d3d3;
-  /* background-image:url('warehouse.png')*/
+   background-image:url('warehouse.png')
 }
 
-p {
+p, h1 {
     font-family: 'Press Start 2P', cursive;
 }
 
