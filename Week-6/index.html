@@ -12,6 +12,7 @@ var myGamePiece;
 var myObstacles = [];
 var myScore;
 
+//Initializes Game
 function startGame() {
     myGamePiece = new component(30, 30, "jetpack.png", 10, 120, "image");
     myGamePiece.gravity = 0.05;
@@ -19,6 +20,7 @@ function startGame() {
     myGameArea.start();
 }
 
+//Canvas
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
@@ -34,6 +36,7 @@ var myGameArea = {
     }
 }
 
+//manages the player
 function component(width, height, color, x, y, type) {
     this.type = type;
       if (type == "image") {
@@ -71,6 +74,7 @@ function component(width, height, color, x, y, type) {
         this.y += this.speedY + this.gravitySpeed;
         this.hitBottom();
     }
+    //Prevents infinite falling
     this.hitBottom = function() {
         var rockbottom = myGameArea.canvas.height - this.height;
         if (this.y > rockbottom) {
@@ -78,6 +82,7 @@ function component(width, height, color, x, y, type) {
             this.gravitySpeed = 0;
         }
     }
+    //Collision
     this.crashWith = function(otherobj) {
         var myleft = this.x;
         var myright = this.x + (this.width);
@@ -95,6 +100,7 @@ function component(width, height, color, x, y, type) {
     }
 }
 
+//Updates the Game and obstacle spawns
 function updateGameArea() {
     var x, height, gap, minHeight, maxHeight, minGap, maxGap;
     for (i = 0; i < myObstacles.length; i += 1) {
@@ -130,6 +136,7 @@ function everyinterval(n) {
     return false;
 }
 
+//jumpforce
 function accelerate(n) {
     if (!myGameArea.interval) {myGameArea.interval = setInterval(updateGameArea, 20);}
 
