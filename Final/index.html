@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Top Champions</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+   <style>
+body, html {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+* {
+	box-sizing: border-box;
+}
+.wrapper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+span.info {
+	display: block;
+}
+      </style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+  <div class="wrapper">
+    <h1>This is the broken result of what was suppose to be my final. Comments in code to explain what's wrong.</h1>
+<div id="search">
+  <label>Summoner Name:</label>
+
+  <input id="sumName" />
+    <input type="submit" onclick="summonerLookUp();" />
+
+</div>
+<div class="sum-info">
+  <span class="info">ID:<span id="idofname"></span></span>
+  <span class="info">Summoner Level:<span id="summonerlevel"></span></span>
+  <span class="info">Total Penta kills:<span id="totalPentaKills"></span></span>
+  <span class="info">Top Champ 1:<span id="topChamp1"></span></span>
+  <span class="info">Top Champ 2:<span id="topChamp2"></span></span>
+  <span class="info">Top Champ 3:<span id="topChamp3"></span></span>
+</div>
+</div>
+    <script type="text/javascript">
+//gets player's specific id to help find other data. (well it was suppsoed to)
+ var sumName = "";
+var API = "RGAPI-074bc99a-3915-4d36-a75c-01cab416ab55"; 
+function summonerLookUp() {
+	var SUMMONER_NAME = "";
+	SUMMONER_NAME = $("#sumName").val();
+	if (SUMMONER_NAME !== "") {
+		$.ajax({
+			url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + SUMMONER_NAME + '?api_key=' + API,
+			type: 'GET',
+			dataType: 'json',
+			data: {},
+			success: function(json) {
+				var SUMMONER_NAME_NOSPACES = SUMMONER_NAME.replace(" ", "");
+				var SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
+				var summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
+				var summonerID = json[SUMMONER_NAME_NOSPACES].id;
+				var summonerName = json[SUMMONER_NAME_NOSPACES].name;
+				document.getElementById("summonerlevel").innerHTML = summonerLevel;
+				document.getElementById("idofname").innerHTML = summonerID;
+				top3champs(summonerID);
+				sumName = summonerName;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("error getting Summoner data!");
+			}
+		});
+	} else {}
+}
+//The following functions were supposed to give a player's top 3 champions
+function top3champs(summonerID) {
+	$.ajax({
+		url: "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/" + summonerID + "/ranked?season=SEASON2016&api_key=" + API,
+		type: 'GET',
+		dataType: 'json',
+		data: {},
+		success: function(resp) {
+			resp["champions"].sort(function(a, b) {
+				return parseFloat(b.stats.totalSessionsPlayed) - parseFloat(a.stats.totalSessionsPlayed);
+			});
+			var sessionsPlayed = resp["champions"][0].id;
+			var sessionsPlayed2 = resp["champions"][1].id;
+			var sessionsPlayed3 = resp["champions"][2].id;
+			theChampion2(sessionsPlayed);
+			theChampion2(sessionsPlayed2);
+			theChampion3(sessionsPlayed3);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("error getting Top 5 Champs");
+		}
+	});
+}
+//Thus idiot won't show
+function theChampion1(champID) {
+	$.ajax({
+		url: "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + champID + "?api_key=" + API,
+		type: 'GET',
+		dataType: 'json',
+		data: {},
+		success: function(resp) {
+			var champname = resp["key"];
+			document.getElementById("topChamp1").innerHTML = champname;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("error getting Champion ID!");
+		}
+	});
+}
+
+function theChampion2(champID) {
+	$.ajax({
+		url: "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + champID + "?api_key=" + API,
+		type: 'GET',
+		dataType: 'json',
+		data: {},
+		success: function(resp) {
+			var champname = resp["key"];
+			document.getElementById("topChamp2").innerHTML = champname;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("error getting Champion ID!");
+		}
+	});
+}
+
+function theChampion3(champID) {
+	$.ajax({
+		url: "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + champID + "?champData=image&api_key=" + API,
+		type: 'GET',
+		dataType: 'json',
+		data: {},
+		success: function(resp) {
+			var champname = resp["key"];
+			document.getElementById("topChamp3").innerHTML = champname;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("error getting Champion ID!");
+		}
+	});
+}
+</script>
+    
+  </body>
+</html>

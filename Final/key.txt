@@ -1,0 +1,5 @@
+Key:
+RGAPI-074bc99a-3915-4d36-a75c-01cab416ab55
+Rate Limit(s):
+10 requests every 10 seconds
+500 requests every 10 minutes
